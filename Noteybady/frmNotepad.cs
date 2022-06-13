@@ -91,5 +91,26 @@
         ///
         /// Theme Envet
         ///
+
+        private void themBlackToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            richTextBox1.ForeColor = Color.White;
+            richTextBox1.BackColor = Color.Black;
+            this.BackColor = Color.Gray;
+        }
+
+        private void themGrayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            richTextBox1.ForeColor = Color.Black;
+            richTextBox1.BackColor = Color.Gray;
+            this.BackColor = Color.Gray;
+        }
+
+        private void themDefaultToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            richTextBox1.ForeColor = Color.Black;
+            richTextBox1.BackColor = Color.White;
+            this.BackColor = Color.White;
+        }
     }
 }
