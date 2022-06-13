@@ -43,7 +43,7 @@ namespace Noteybady
             t.Start();
             t.Join();
 
-            // e.g C:\Users\MyName\Desktop\myfile.rtf
+            // C:\Users\MyName\Desktop\myfile.rtf
             Console.WriteLine(fpath);
         }
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
