@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Noteybady
 {
-    public partial class Form2 : Form
+    public partial class frmNotepad : Form
     {
-        public Form2()
+        public frmNotepad()
         {
             InitializeComponent();
         }
@@ -86,18 +86,21 @@ namespace Noteybady
 
         private void fontToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            fontDialog1.ShowDialog();
+            richTextBox1.SelectionFont = fontDialog1.Font;
         }
 
-        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void colorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            colorDialog1.ShowDialog();
+            richTextBox1.SelectionColor = colorDialog1.Color;
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("This is a Notepad for educational purposes. ");
         }
 
+        
     }
 }
