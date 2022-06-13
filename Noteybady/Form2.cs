@@ -16,5 +16,10 @@ namespace Noteybady
         {
             InitializeComponent();
         }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            richTextBox1.Text = "";
+        }
     }
 }
