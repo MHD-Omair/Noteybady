@@ -24,7 +24,6 @@ namespace Noteybady
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             Thread t = new Thread((ThreadStart)(() => {
                 OpenFileDialog sfd = new OpenFileDialog();
 
@@ -38,7 +37,6 @@ namespace Noteybady
                 }
             }));
 
-            // Run your code from a thread that rtf the STA Thread
             t.SetApartmentState(ApartmentState.STA);
             t.Start();
             t.Join();
@@ -48,12 +46,34 @@ namespace Noteybady
         }
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            Thread t = new Thread((ThreadStart)(() => {
+                OpenFileDialog sfd = new OpenFileDialog();
+
+                sfd.Filter = "JSON Files (*.json)|*.json";
+                sfd.FilterIndex = 2;
+                sfd.RestoreDirectory = true;
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    fpath = sfd.FileName;
+                }
+            }));
+
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            // C:\Users\MyName\Desktop\myfile.rtf
+            Console.WriteLine(fpath);
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            saveFileDialog1.Filter = "Rich Text Files | *.rtf";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                richTextBox1.SaveFile(saveFileDialog1.FileName);
+            }
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
