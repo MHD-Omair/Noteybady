@@ -47,9 +47,9 @@ namespace Noteybady
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Thread t = new Thread((ThreadStart)(() => {
-                OpenFileDialog sfd = new OpenFileDialog();
+                SaveFileDialog sfd = new SaveFileDialog();
 
-                sfd.Filter = "JSON Files (*.json)|*.json";
+                sfd.Filter = "Rich Text Format Files (*.rtf)|*.rtf";
                 sfd.FilterIndex = 2;
                 sfd.RestoreDirectory = true;
 
