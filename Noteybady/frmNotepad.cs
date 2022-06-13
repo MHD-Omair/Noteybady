@@ -1,8 +1,10 @@
 ﻿using System.Data;
 using System.Drawing;
 using System.IO;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -10,18 +12,40 @@ namespace Noteybady
 {
     public partial class frmNotepad : Form
     {
-        String path = String.Empty;
-
+        string fpath = "";
         public frmNotepad() => InitializeComponent();
-        
+
         /// File Envnts
-        private void newToolStripMenuItem_Click(object sender, EventArgs e) => richTextBox1.Clear();
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            richTextBox1.Text = "";
+            fpath = "";
+        }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
-        }
 
+            Thread t = new Thread((ThreadStart)(() => {
+                OpenFileDialog sfd = new OpenFileDialog();
+
+                sfd.Filter = "Rich Text Format Files (*.rtf)|*.rtf";
+                sfd.FilterIndex = 2;
+                sfd.RestoreDirectory = true;
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    fpath = sfd.FileName;
+                }
+            }));
+
+            // Run your code from a thread that rtf the STA Thread
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            // e.g C:\Users\MyName\Desktop\myfile.rtf
+            Console.WriteLine(fpath);
+        }
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             
@@ -78,27 +102,6 @@ namespace Noteybady
         ///
         /// Theme Envet
         ///
-
-        private void themBlackToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            richTextBox1.ForeColor = Color.White;
-            richTextBox1.BackColor = Color.Black;
-            this.BackColor = Color.Gray;
-        }
-
-        private void themGrayToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            richTextBox1.ForeColor = Color.Black;
-            richTextBox1.BackColor = Color.Gray;
-            this.BackColor = Color.Gray;
-        }
-
-        private void themDefaultToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            richTextBox1.ForeColor = Color.Black;
-            richTextBox1.BackColor = Color.White;
-            this.BackColor = Color.White;
-        }
 
         private void defaultToolStripMenuItem_Click(object sender, EventArgs e)
         {
