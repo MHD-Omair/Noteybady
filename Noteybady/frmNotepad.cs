@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace Noteybady
+﻿namespace Noteybady
 {
     public partial class frmNotepad : Form
     {
@@ -19,17 +9,26 @@ namespace Noteybady
         /// File Envnts
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            richTextBox1.Text = "";
+            richTextBox1.Clear();
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if(openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                richTextBox1.Text = File.ReadAllText(openFileDialog1.FileName);
+            }
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            saveFileDialog1.DefaultExt = ".txt";
+            saveFileDialog1.Filter = "Text File|*.txt|PDF file|*.pdf|Word File|*.doc";
+            DialogResult dr = saveFileDialog1.ShowDialog();
+            if (dr == DialogResult.OK)
+            {
+                File.WriteAllText(saveFileDialog1.FileName, richTextBox1.Text);
+            }
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
