@@ -67,15 +67,6 @@ namespace Noteybady
             Console.WriteLine(fpath);
         }
 
-        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            saveFileDialog1.Filter = "Rich Text Files | *.rtf";
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                richTextBox1.SaveFile(saveFileDialog1.FileName);
-            }
-        }
-
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
