@@ -15,10 +15,7 @@ namespace Noteybady
         public frmNotepad() => InitializeComponent();
         
         /// File Envnts
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            richTextBox1.Clear();
-        }
+        private void newToolStripMenuItem_Click(object sender, EventArgs e) => richTextBox1.Clear();
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
