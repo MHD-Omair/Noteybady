@@ -84,5 +84,20 @@ namespace Noteybady
             richTextBox1.SelectAll();
         }
 
+        private void fontToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
