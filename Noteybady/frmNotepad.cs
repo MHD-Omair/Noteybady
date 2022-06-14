@@ -12,14 +12,12 @@ namespace Noteybady
 {
     public partial class frmNotepad : Form
     {
-        string filepath = "";
         public frmNotepad() => InitializeComponent();
 
         /// File Envnts
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             richTextBox1.Text = "";
-            filepath = "";
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -28,13 +26,23 @@ namespace Noteybady
 
             Thread t = new Thread((ThreadStart)(() => {
                 OpenFileDialog ofd = new OpenFileDialog();
-                ofd.Filter = "JSON Files (*.json)|*.json|Text files (*.txt)|*.txt|RTF files (*.rtf)|*.rtf";
-                ofd.FilterIndex = 3;
+                ofd.Filter = "Rich Text Files (*.rtf)|*.rtf|" +
+                             "Microsoft Word Document (*.doc)|*.doc|" +
+                             "Hypertext Markup Language Document (*.html)|*.html" +
+                             "Text Document (*.txt)|*.txt|";
+                ofd.ValidateNames = true;
+                ofd.Multiselect = false; 
+                ofd.FilterIndex = 4;
                 ofd.RestoreDirectory = true;
-
+                
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    selectedPath = ofd.FileName;
+                    using (StreamReader sr = new StreamReader(ofd.FileName))
+                    {
+                        selectedPath = ofd.FileName;
+                        Task<string> text = sr.ReadToEndAsync();
+                       /// richTextBox1.Text =text.Result;
+                    }
                 }
             }));
 
@@ -55,10 +63,32 @@ namespace Noteybady
              Thread t = new Thread((ThreadStart)(() => {
                  SaveFileDialog sfd = new SaveFileDialog();
 
-                 sfd.Filter = "JSON Files (*.json)|*.json|Text files (*.txt)|*.txt|RTF files (*.rtf)|*.rtf";
-                 if (sfd.ShowDialog() == DialogResult.OK)
+                 sfd.Filter ="Rich Text Files (*.rtf)|*.rtf|" +
+                             "Microsoft Word Document (*.doc)|*.doc|" +
+                             "Hypertext Markup Language Document (*.html)|*.html" +
+                             "Text Document (*.txt)|*.txt|";
+                 sfd.ValidateNames = true;
+                 sfd.FilterIndex = 4;
+                 sfd.RestoreDirectory = true;
+                 if (string.IsNullOrEmpty(selectedPath))
                  {
-                     selectedPath = sfd.FileName;
+                     if (sfd.ShowDialog() == DialogResult.OK)
+                     {
+                         using (StreamWriter sw = new StreamWriter(sfd.FileName))
+                         {
+                             sw.WriteLineAsync(richTextBox1.Text);
+                         }
+                       /*  richTextBox1.SaveFile(sfd.FileName, RichTextBoxStreamType.RichText);
+                         selectedPath = sfd.FileName;
+                         this.Text = string.Format("{0} - Basic Word Processor", sfd.FileName);*/
+                     }
+                 }
+                 else
+                 {
+                     using (StreamWriter sw = new StreamWriter(selectedPath))
+                     {
+                         sw.WriteLineAsync(richTextBox1.Text);
+                     }
                  }
              }));
 
