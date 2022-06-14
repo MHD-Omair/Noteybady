@@ -12,59 +12,61 @@ namespace Noteybady
 {
     public partial class frmNotepad : Form
     {
-        string fpath = "";
+        string filepath = "";
         public frmNotepad() => InitializeComponent();
 
         /// File Envnts
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             richTextBox1.Text = "";
-            fpath = "";
+            filepath = "";
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string selectedPath = "";
+
             Thread t = new Thread((ThreadStart)(() => {
-                OpenFileDialog sfd = new OpenFileDialog();
+                OpenFileDialog ofd = new OpenFileDialog();
+                ofd.Filter = "JSON Files (*.json)|*.json|Text files (*.txt)|*.txt|RTF files (*.rtf)|*.rtf";
+                ofd.FilterIndex = 3;
+                ofd.RestoreDirectory = true;
 
-                sfd.Filter = "Rich Text Format Files (*.rtf)|*.rtf";
-                sfd.FilterIndex = 2;
-                sfd.RestoreDirectory = true;
-
-                if (sfd.ShowDialog() == DialogResult.OK)
+                if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    fpath = sfd.FileName;
+                    selectedPath = ofd.FileName;
                 }
             }));
 
+            // Run your code from a thread that joins the STA Thread
             t.SetApartmentState(ApartmentState.STA);
             t.Start();
             t.Join();
 
-            // C:\Users\MyName\Desktop\myfile.rtf
-            Console.WriteLine(fpath);
+            // e.g C:\Users\MyName\Desktop\myfile.* *
+            Console.WriteLine(selectedPath);
         }
+
+
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Thread t = new Thread((ThreadStart)(() => {
-                SaveFileDialog sfd = new SaveFileDialog();
+             string selectedPath = "";
 
-                sfd.Filter = "Rich Text Format Files (*.rtf)|*.rtf";
-                sfd.FilterIndex = 2;
-                sfd.RestoreDirectory = true;
+             Thread t = new Thread((ThreadStart)(() => {
+                 SaveFileDialog sfd = new SaveFileDialog();
 
-                if (sfd.ShowDialog() == DialogResult.OK)
-                {
-                    fpath = sfd.FileName;
-                }
-            }));
+                 sfd.Filter = "JSON Files (*.json)|*.json|Text files (*.txt)|*.txt|RTF files (*.rtf)|*.rtf";
+                 if (sfd.ShowDialog() == DialogResult.OK)
+                 {
+                     selectedPath = sfd.FileName;
+                 }
+             }));
 
-            t.SetApartmentState(ApartmentState.STA);
-            t.Start();
-            t.Join();
+             t.SetApartmentState(ApartmentState.STA);
+             t.Start();
+             t.Join();
 
-            // C:\Users\MyName\Desktop\myfile.rtf
-            Console.WriteLine(fpath);
+             Console.WriteLine(selectedPath);
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
