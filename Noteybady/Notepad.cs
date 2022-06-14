@@ -172,5 +172,30 @@ namespace Text.Editor
         private void zoomOutToolStripMenuItem_Click(object sender, EventArgs e) =>richTextBox1.ZoomFactor = 1;
 
         private void restoreDefaultZoomToolStripMenuItem_Click(object sender, EventArgs e) =>richTextBox1.ZoomFactor = 0;
+
+        ///
+        /// Theme Envet
+        ///
+
+        private void defaultToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            richTextBox1.ForeColor = Color.Black;
+            richTextBox1.BackColor = Color.White;
+            this.BackColor = Color.White;
+        }
+
+        private void blackToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            richTextBox1.ForeColor = Color.White;
+            richTextBox1.BackColor = Color.Black;
+            this.BackColor = Color.Gray;
+        }
+
+        private void grayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            richTextBox1.ForeColor = Color.Black;
+            richTextBox1.BackColor = Color.Gray;
+            this.BackColor = Color.Gray;
+        }
     }
 }
