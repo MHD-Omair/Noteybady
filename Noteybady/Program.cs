@@ -5,7 +5,7 @@ namespace Noteybady
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new frmNotepad());
+            Application.Run(new Form1());
         }
     }
 }
